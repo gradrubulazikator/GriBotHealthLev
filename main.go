@@ -8,16 +8,14 @@ import (
 	"time"
 )
 
-const telegramAPI = "https://api.telegram.org/bot" // Основной URL API Telegram
+const telegramAPI = "https://api.telegram.org/bot"
 
-// Конфигурация бота
 var (
-	botToken    = "7215760944:AAF3fveH7KFHOe1HVvxICFGbx27fzQGAkMU" // Прямое значение токена
-	chatID      = "5838863003"                                     // Прямое значение ID чата
-	remindDelay = time.Hour * 6                                    // Интервал напоминаний
+	botToken    = "7215760944:AAF3fveH7KFHOe1HVvxICFGbx27fzQGAkMU"
+	chatID      = "5838863003"
+	remindDelay = 2 * time.Hour // Измените на более короткий интервал для тестирования
 )
 
-// Функция для отправки сообщения
 func sendMessage(message string) error {
 	endpoint := fmt.Sprintf("%s%s/sendMessage", telegramAPI, botToken)
 	data := url.Values{}
@@ -36,7 +34,6 @@ func sendMessage(message string) error {
 	return nil
 }
 
-// Функция для отправки напоминаний
 func healthReminder() {
 	messages := []string{
 		"Пора сделать разминку!",
@@ -57,8 +54,6 @@ func healthReminder() {
 func main() {
 	log.Println("Запуск GriBotHealthLev...")
 	go healthReminder()
-
-	// Сохранение работы бота без блокировки основного потока
 	select {}
 }
 
